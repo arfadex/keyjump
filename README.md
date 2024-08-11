@@ -1,4 +1,4 @@
-# KeyJump Userscript
+# KeyJump
 
 ## Overview
 
