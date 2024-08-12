@@ -84,7 +84,7 @@
     if (window.location.hostname.includes('youtube.com')) {
         // YouTube-specific menu
         menuContent += `
-            <li><span>F</span> → Front Page</li>
+            <li><span>H</span> → Home</li>
             <li><span>L</span> → Library</li>
             <li><span>S</span> → Subscriptions</li>
             <li><span>Y</span> → History</li>
@@ -96,7 +96,7 @@
     } else if (window.location.hostname.includes('last.fm')) {
         // Last.fm-specific menu
         menuContent += `
-            <li><span>F</span> → Front Page</li>
+            <li><span>H</span> → Home</li>
             <li><span>L</span> → Library</li>
             <li><span>S</span> → Scrobbles</li>
             <li><span>A</span> → Artists</li>
@@ -113,8 +113,15 @@
     menu.style.display = 'none'; // Hide menu by default
     document.body.appendChild(menu);
 
+    function isTyping() {
+        const activeElement = document.activeElement;
+        return activeElement.tagName === 'INPUT' || activeElement.tagName === 'TEXTAREA' || activeElement.isContentEditable;
+    }
+
     // Show/hide menu when the "g" key is pressed
     document.addEventListener('keydown', function(event) {
+        if (isTyping()) return; // Ignore key presses while typing
+
         if (event.key === 'g') {
             menu.style.display = menu.style.display === 'none' ? 'block' : 'none';
         } else if (event.key === 'Escape') {
@@ -124,10 +131,11 @@
 
     // Implement the key bindings
     document.addEventListener('keydown', function(event) {
+        if (isTyping()) return; // Ignore key presses while typing
         if (menu.style.display === 'block') { // Only process keybindings when menu is visible
             if (window.location.hostname.includes('youtube.com')) {
                 // YouTube key bindings
-                if (event.key === 'f') {
+                if (event.key === 'h') {
                     window.location.href = '/';
                 } else if (event.key === 'l') {
                     window.location.href = '/feed/library';
@@ -146,7 +154,7 @@
                 }
             } else if (window.location.hostname.includes('last.fm')) {
                 // Last.fm key bindings
-                if (event.key === 'f') {
+                if (event.key === 'h') {
                     window.location.href = '/home';
                 } else if (event.key === 'l') {
                     window.location.href = `/user/${lastFmUsername}/library`;
