@@ -103,7 +103,6 @@
             <li><span>A</span> → Artists</li>
             <li><span>T</span> → Tracks</li>
             <li><span>P</span> → Playlists</li>
-            <li><span>F</span> → Friends</li>
             <li><span>J</span> → Journal</li>
         `;
     }
@@ -169,8 +168,6 @@
                     window.location.href = `/user/${lastFmUsername}/tracks`;
                 } else if (event.key === 'p') {
                     window.location.href = `/user/${lastFmUsername}/playlists`;
-                } else if (event.key === 'f') {
-                    window.location.href = `/user/${lastFmUsername}/friends`;
                 } else if (event.key === 'j') {
                     window.location.href = `/user/${lastFmUsername}/journal`;
                 }
