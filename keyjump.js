@@ -97,6 +97,7 @@
         // Last.fm-specific menu
         menuContent += `
             <li><span>H</span> → Home</li>
+            <li><span>F</span> → Profile</li>
             <li><span>L</span> → Library</li>
             <li><span>S</span> → Scrobbles</li>
             <li><span>A</span> → Artists</li>
@@ -156,6 +157,8 @@
                 // Last.fm key bindings
                 if (event.key === 'h') {
                     window.location.href = '/home';
+                } else if (event.key === 'f') {
+                    window.location.href = `/user/${lastFmUsername}`;
                 } else if (event.key === 'l') {
                     window.location.href = `/user/${lastFmUsername}/library`;
                 } else if (event.key === 's') {
