@@ -13,10 +13,8 @@
 (function() {
     'use strict';
 
-    // Set your Last.fm username here
-    const lastFmUsername = 'YourUsername'; // Replace 'YourUsername' with your actual Last.fm username
+    const lastFmUsername = 'YourUsername';
 
-    // Add CSS
     const style = document.createElement('style');
     style.textContent = `
         #keybindingMenu {
@@ -24,17 +22,17 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            background-color: #1e1e2e; 
-            border: 1px solid #7f849c; 
+            background-color: #1e1e2e;
+            border: 1px solid #7f849c;
             padding: 15px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
             font-family: Arial, sans-serif;
-            font-size: 16px; 
-            line-height: 1.5; 
+            font-size: 16px;
+            line-height: 1.5;
             z-index: 10000;
-            color: #d9e0ee; 
-            width: 300px; 
-            border-radius: 10px; 
+            color: #d9e0ee;
+            width: 300px;
+            border-radius: 10px;
         }
         #keybindingMenu ul {
             list-style: none;
@@ -66,11 +64,9 @@
     `;
     document.head.appendChild(style);
 
-    // Create the menu based on the current website
     const menu = document.createElement('div');
     menu.id = 'keybindingMenu';
 
-    // Add close button
     const closeButton = document.createElement('button');
     closeButton.textContent = 'x';
     closeButton.className = 'closeButton';
@@ -82,7 +78,6 @@
     let menuContent = '<div>Press a key to go:</div><ul>';
 
     if (window.location.hostname.includes('youtube.com')) {
-        // YouTube-specific menu
         menuContent += `
             <li><span>H</span> → Home</li>
             <li><span>L</span> → Library</li>
@@ -92,9 +87,9 @@
             <li><span>T</span> → Trending</li>
             <li><span>P</span> → Playlist</li>
             <li><span>M</span> → Music</li>
+            <li><span>A</span> → Channel Videos Page</li>
         `;
     } else if (window.location.hostname.includes('last.fm')) {
-        // Last.fm-specific menu
         menuContent += `
             <li><span>H</span> → Home</li>
             <li><span>F</span> → Profile</li>
@@ -110,7 +105,7 @@
     menuContent += '</ul>';
     menu.insertAdjacentHTML('beforeend', menuContent);
 
-    menu.style.display = 'none'; // Hide menu by default
+    menu.style.display = 'none';
     document.body.appendChild(menu);
 
     function isTyping() {
@@ -118,9 +113,8 @@
         return activeElement.tagName === 'INPUT' || activeElement.tagName === 'TEXTAREA' || activeElement.isContentEditable;
     }
 
-    // Show/hide menu when the "g" key is pressed
     document.addEventListener('keydown', function(event) {
-        if (isTyping()) return; // Ignore key presses while typing
+        if (isTyping()) return;
 
         if (event.key === 'g') {
             menu.style.display = menu.style.display === 'none' ? 'block' : 'none';
@@ -129,12 +123,13 @@
         }
     });
 
-    // Implement the key bindings
     document.addEventListener('keydown', function(event) {
-        if (isTyping()) return; // Ignore key presses while typing
-        if (menu.style.display === 'block') { // Only process keybindings when menu is visible
+        if (isTyping()) return;
+
+        if (menu.style.display === 'block') {
             if (window.location.hostname.includes('youtube.com')) {
-                // YouTube key bindings
+                const currentVideoChannel = document.querySelector('a.yt-simple-endpoint.style-scope.yt-formatted-string[href^="/@"]');
+
                 if (event.key === 'h') {
                     window.location.href = '/';
                 } else if (event.key === 'l') {
@@ -151,9 +146,10 @@
                     window.location.href = '/feed/playlists';
                 } else if (event.key === 'm') {
                     window.location.href = '/music';
+                } else if (event.key === 'a' && currentVideoChannel) {
+                    window.location.href = currentVideoChannel.href + '/videos';
                 }
             } else if (window.location.hostname.includes('last.fm')) {
-                // Last.fm key bindings
                 if (event.key === 'h') {
                     window.location.href = '/home';
                 } else if (event.key === 'f') {
