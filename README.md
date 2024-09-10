@@ -40,4 +40,4 @@ This project is licensed under the GPL-3.0 License.
 
 ## Author
 
-- **Megane0103** - [GitHub](https://github.com/Megane0103/keyjump)
+- **arfadex** - [GitHub](https://github.com/arfadex/keyjump)
